@@ -14,6 +14,8 @@ Provide answer in JSON format:
     "explanation" : "explanation of changes"
 }}
 ###
+Escape all double-quote characters and other chars that is not applicable for JSON within string output with backslash.
+###
 <text>
 {text}
 </text>
