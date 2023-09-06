@@ -1,7 +1,7 @@
 """
     LLM
 """
-# pylint: disable=C0301,C0103,C0303,C0411,R0903
+# pylint: disable=C0301,C0103,C0303,C0411,R0903,C0304
 
 from dataclasses import dataclass
 import os
@@ -27,6 +27,7 @@ class OutputItem:
     error  : str
     tokens_input : int
     tokens_used : int
+    debug_str : str = None
 
 class LlmManager():
     """LLM Manager"""
@@ -66,21 +67,23 @@ class LlmManager():
             error_tokens = "Sorry, it's only PoC, text is too long"
             return OutputItem(None, None, error_tokens, input_len, 0)
 
-        with get_openai_callback() as llm_callback:
-            result_str = self.style_chain.invoke({
-                    "style" : style, 
-                    "text" : input_text
-                })
-
+        total_tokens = 0
+        result_str = None
+        try:
+            with get_openai_callback() as llm_callback:
+                result_str = self.style_chain.invoke({
+                        "style" : style, 
+                        "text" : input_text
+                    })
             total_tokens = llm_callback.total_tokens
-            try:
-                result_json = llm_utils.get_llm_json(result_str)
-                return OutputItem(
-                            result_json['new_text'],
-                            result_json['explanation'],
-                            None,
-                            input_len,
-                            total_tokens
-                        )
-            except Exception as error: # pylint: disable=W0718
-                return OutputItem(None, None, error, input_len, total_tokens)
+        except Exception as error: # pylint: disable=W0718
+            return OutputItem(None, None, error, input_len, total_tokens, result_str)
+
+        result_dict = llm_utils.parse_llm_xml(result_str, ['changed_text', 'explanation'])
+        return OutputItem(
+                    result_dict['changed_text'],
+                    result_dict['explanation'],
+                    None,
+                    input_len,
+                    total_tokens
+                )

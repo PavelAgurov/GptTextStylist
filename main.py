@@ -4,12 +4,6 @@
 
 # pylint: disable=C0301,C0103,C0303,C0411
 
-import json
-import os
-import re
-import datetime
-import pandas as pd
-
 import streamlit as st
 
 from streamlit_utils import streamlit_hack_remove_top_space
@@ -57,6 +51,7 @@ output_text = output_text_container.container().empty()
 explanation_text_container = st.expander(label="The idea of changes", expanded=True)
 explanation_text = explanation_text_container.container().empty()
 token_used = st.empty()
+debug = st.expander(label="Debug", expanded=False)
 
 input_text = st.session_state[SESSION_INPUT_TEXT]
 if not input_text or not run_button:
@@ -75,4 +70,5 @@ if not output.error:
     explanation_text.markdown(output.explanation)
 else:
     output_text.markdown(output.error)
+    debug.markdown(output.debug_str)
 token_used.markdown(f'Token input: {output.tokens_input}. Token used {output.tokens_used}')
