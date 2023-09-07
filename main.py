@@ -64,7 +64,7 @@ if selected_style == style_manager.CUSTOM_STYLE:
 if not selected_style:
     st.stop()
 
-output = llm_manager.apply_style(input_text, style_option)
+output = llm_manager.apply_style(input_text, selected_style)
 if not output.error:
     output_text.markdown(output.result)
     explanation_text.markdown(output.explanation)
