@@ -23,6 +23,7 @@ import llm_utils
 class OutputItem:
     """Output item"""
     result : str
+    title  : str
     explanation : str
     error  : str
     tokens_input : int
@@ -65,7 +66,7 @@ class LlmManager():
         input_len = self.len_function(input_text)
         if input_len > self._MAX_TOKENS:
             error_tokens = "Sorry, it's only PoC, text is too long"
-            return OutputItem(None, None, error_tokens, input_len, 0)
+            return OutputItem(None, None, None, error_tokens, input_len, 0)
 
         total_tokens = 0
         result_str = None
@@ -79,9 +80,10 @@ class LlmManager():
         except Exception as error: # pylint: disable=W0718
             return OutputItem(None, None, error, input_len, total_tokens, result_str)
 
-        result_dict = llm_utils.parse_llm_xml(result_str, ['changed_text', 'explanation'])
+        result_dict = llm_utils.parse_llm_xml(result_str, ['changed_text', 'proposed_title', 'explanation'])
         return OutputItem(
                     result_dict['changed_text'],
+                    result_dict['proposed_title'],
                     result_dict['explanation'],
                     None,
                     input_len,

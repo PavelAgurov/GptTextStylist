@@ -47,6 +47,7 @@ if style_option == style_manager.CUSTOM_STYLE:
 _, col_button = st.columns([10, 1])
 run_button = col_button.button(label="RUN")
 output_text_container = st.expander(label="Output", expanded=True)
+output_title = output_text_container.container().empty() 
 output_text = output_text_container.container().empty()
 explanation_text_container = st.expander(label="The idea of changes", expanded=True)
 explanation_text = explanation_text_container.container().empty()
@@ -66,9 +67,11 @@ if not selected_style:
 
 output = llm_manager.apply_style(input_text, selected_style)
 if not output.error:
+    output_title.markdown(f'<b>{output.title}</b>', unsafe_allow_html=True)
     output_text.markdown(output.result)
     explanation_text.markdown(output.explanation)
 else:
+    output_title.markdown('ERROR')
     output_text.markdown(output.error)
     debug.markdown(output.debug_str)
 token_used.markdown(f'Token input: {output.tokens_input}. Token used {output.tokens_used}')
