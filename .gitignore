@@ -1,6 +1,6 @@
-/.streamlit
 /.langchain.db
 /__pycache__
 .vscode
 .pytest_cache
 
+/.streamlit/secrets.toml
