@@ -3,5 +3,7 @@ openai
 streamlit
 tiktoken
 sentence-transformers
-
-
+langchain-community 
+langchain-core
+langchain_openai
+langchain_text_splitters

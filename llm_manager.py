@@ -9,12 +9,12 @@ import os
 import tiktoken
 
 import langchain
-from langchain.chat_models import ChatOpenAI
-from langchain import PromptTemplate
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from langchain.schema.output_parser import StrOutputParser
-from langchain.cache import SQLiteCache
-from langchain.callbacks import get_openai_callback
+from langchain_community.cache import SQLiteCache
+from langchain_community.callbacks.manager import get_openai_callback
 
 import prompts
 import llm_utils

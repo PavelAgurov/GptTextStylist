@@ -6,7 +6,7 @@
 
 import streamlit as st
 
-from streamlit_utils import streamlit_hack_remove_top_space
+from utils_streamlit import streamlit_hack_remove_top_space
 from style_manager import StyleManager
 from llm_manager import LlmManager
 import text_examples
