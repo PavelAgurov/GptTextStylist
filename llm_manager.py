@@ -11,7 +11,6 @@ import tiktoken
 import langchain
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import PromptTemplate
-from langchain.chains import LLMChain
 from langchain.schema.output_parser import StrOutputParser
 from langchain_community.cache import SQLiteCache
 from langchain_community.callbacks.manager import get_openai_callback
@@ -34,7 +33,7 @@ class LlmManager():
     """LLM Manager"""
     llm_style    : ChatOpenAI
     style_prompt : PromptTemplate
-    style_chain  : LLMChain
+    style_chain  : any
     token_estimator : tiktoken.core.Encoding
 
     _MODEL_NAME = "gpt-4o-mini"

@@ -43,6 +43,7 @@ if button_example3:
     st.session_state[SESSION_INPUT_TEXT]= text_examples.example3
 col1.text_area(label="Input text*:", value= st.session_state[SESSION_INPUT_TEXT], on_change= input_on_change, key= 'user_input')
 
+custom_style = ""
 style_option = st.selectbox(label="Style*:", options= style_manager.get_style_str_list(), index=0)
 if style_option == style_manager.CUSTOM_STYLE:
     custom_style = st.text_input(label="Custom style*:")
@@ -62,7 +63,7 @@ if not input_text or not run_button:
 
 selected_style = style_option
 if selected_style == style_manager.CUSTOM_STYLE:
-    selected_style = custom_style 
+    selected_style = custom_style
 
 if not selected_style:
     st.stop()
