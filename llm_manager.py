@@ -37,8 +37,8 @@ class LlmManager():
     style_chain  : LLMChain
     token_estimator : tiktoken.core.Encoding
 
-    _MODEL_NAME = "gpt-3.5-turbo" # gpt-3.5-turbo-16k
-    _MAX_TOKENS = 1000
+    _MODEL_NAME = "gpt-4o-mini"
+    _MAX_TOKENS = 4000
 
     def __init__(self):
         langchain.llm_cache = SQLiteCache()

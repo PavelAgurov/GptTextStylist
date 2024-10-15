@@ -6,9 +6,10 @@
 
 import streamlit as st
 
-from utils_streamlit import streamlit_hack_remove_top_space
+from utils_streamlit import streamlit_hack_remove_top_space, hide_header_and_footer
 from style_manager import StyleManager
 from llm_manager import LlmManager
+
 import text_examples
 
 SESSION_INPUT_TEXT = 'stored_input'
@@ -19,6 +20,7 @@ header_str = "Text stylist"
 st.set_page_config(page_title= header_str, layout="wide")
 st.title(header_str)
 streamlit_hack_remove_top_space()
+hide_header_and_footer()
 
 style_manager = StyleManager()
 llm_manager = LlmManager()
